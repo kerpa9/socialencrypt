@@ -21,8 +21,8 @@ const create = catchError(async (req, res) => {
 const update = catchError(async (req, res) => {
   const { id } = req.params;
 
-  delete req.body.password;
-  delete req.body.email;
+  const deleteFields = ["password", "email"];
+  deleteFields.forEach((field) => delete req.body[field]);
 
   const result = await User.update(req.body, {
     where: { id },
@@ -70,17 +70,17 @@ const logged = catchError(async (req, res) => {
   return res.json(user);
 });
 
-const setPosts = catchError(async (req, res) => {
-  const { userId } = req.body,
-    favorites = await Post.findByPk();
-  console.log(userId);
-  await favorites.setPosts(req.body);
+// const setPosts = catchError(async (req, res) => {
+//   const { userId } = req.body,
+//     favorites = await Post.findByPk();
+//   console.log(userId);
+//   await favorites.setPosts(req.body);
 
-  const posts = await favorites.getPosts();
+//   const posts = await favorites.getPosts();
 
-  console.log(posts);
-  return res.json(posts);
-});
+//   console.log(posts);
+//   return res.json(posts);
+// });
 
 module.exports = {
   create,
@@ -90,5 +90,5 @@ module.exports = {
   remove,
   login,
   logged,
-  setPosts,
+  // setPosts,
 };

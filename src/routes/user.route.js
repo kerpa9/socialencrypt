@@ -6,7 +6,7 @@ const {
   remove,
   login,
   logged,
-  setPosts,
+  // setPosts,
 } = require("../controllers/user.controlles");
 const express = require("express");
 const { verifyJwt } = require("../utils/verifyJWT");
@@ -24,6 +24,6 @@ routerUser
   .delete(verifyJwt, remove);
 
 // /users/:id/post
-routerUser.route("/:id/posts").post(setPosts);
+// routerUser.route("/:id/posts").post(verifyJwt, setPosts);
 
 module.exports = routerUser;
